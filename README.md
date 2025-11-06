@@ -3,8 +3,20 @@
 Managing employees attendance
 
 ### Installation
+1.cd ~/frappe-bench
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+2.cd apps
+
+3.bench get-app hr_attendance_management https://github.com/marvinamar/hr_attendance_management
+
+4.bench --site <your-site-name> install-app hr_attendance_management
+
+5.bench --site <your-site-name> migrate
+
+6.bench build
+
+7.bench restart
+
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
