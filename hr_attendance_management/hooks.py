@@ -174,9 +174,23 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "hr_attendance_management.event.get_events"
-# }
+override_whitelisted_methods = {
+	# "frappe.desk.doctype.event.event.get_events": "hr_attendance_management.event.get_events"
+    "get_employees_by_branch": "hr_attendance_management.hr_attendance_management.api.employee.get_employees_by_branch"
+}
+
+fixtures = [
+    {
+        "dt": "Custom Field",
+        "filters": [
+            [
+                "name", "in", ["Employee-custom_embedding"],
+                "name", "in", ["Employee-custom_biometric_image"]
+            ]
+        ]
+    }
+]
+
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
