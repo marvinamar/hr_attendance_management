@@ -176,7 +176,9 @@ app_license = "mit"
 #
 override_whitelisted_methods = {
 	# "frappe.desk.doctype.event.event.get_events": "hr_attendance_management.event.get_events"
-    "get_employees_by_branch": "hr_attendance_management.hr_attendance_management.api.employee.get_employees_by_branch"
+    "get_employees_by_branch": "hr_attendance_management.hr_attendance_management.api.employee.get_employees_by_branch",
+    "update_eployee_api": "hr_attendance_management.hr_attendance_management.api.employee.update_eployee_api",
+    "employee_attendance": "hr_attendance_management.hr_attendance_management.api.employee.employee_attendance"
 }
 
 fixtures = [
