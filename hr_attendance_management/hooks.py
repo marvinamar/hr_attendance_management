@@ -185,10 +185,9 @@ fixtures = [
     {
         "dt": "Custom Field",
         "filters": [
-            [
-                "name", "in", ["Employee-custom_embedding"],
-                "name", "in", ["Employee-custom_biometric_image"]
-            ]
+            ["name", "in", ["Employee-custom_embedding", 
+                            "Employee-custom_biometric_image"
+                            ]]
         ]
     }
 ]
