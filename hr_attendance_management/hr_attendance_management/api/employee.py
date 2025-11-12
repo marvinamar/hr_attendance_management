@@ -72,33 +72,17 @@ def update_eployee_api(name=None,custom_embedding=None,custom_biometric_image=No
     except Exception as e:
         # Return exact error in response
         frappe.response["message"] = f"Error: {str(e)}"
-
-@frappe.whitelist(allow_guest=True)
-def employee_attendance(**kwargs):
-    import json
-
-    # Parse request data safely
-    if frappe.request and frappe.request.data:
-        try:
-            data = json.loads(frappe.request.data)
-        except Exception:
-            data = {}
-    else:
-        data = frappe.form_dict or kwargs
-
-    frappe.response["data"] = data
-
-    employee = data.get("employee")
-    time = data.get("time")
-    log_type = data.get("log_type")
-    device_id = data.get("device_id")
-    latitude = data.get("latitude")
-    longitude = data.get("longitude")
-
+    
+@frappe.whitelist()
+def employee_attendance(employee=None,time=None,log_type=None,device_id=None,latitude=None,longitude=None):
     try:
+        employee = frappe.form_dict.get("employee")
+
+        frappe.response["employee"] = employee
+
         if not employee:
             frappe.throw(_("Employee is required"), frappe.MandatoryError)
-
+        
         attendance = frappe.new_doc("Employee Checkin")
         attendance.employee = employee
         attendance.time = time
@@ -107,6 +91,7 @@ def employee_attendance(**kwargs):
         attendance.latitude = latitude
         attendance.longitude = longitude
 
+        # Insert and submit record
         attendance.insert(ignore_permissions=True)
         attendance.submit()
         frappe.db.commit()
@@ -116,33 +101,5 @@ def employee_attendance(**kwargs):
         frappe.response["attendance_id"] = attendance.name
 
     except Exception as e:
-        frappe.response["status"] = "error"
+        # Return exact error in response
         frappe.response["message"] = f"Error: {str(e)}"
-
-
-# @frappe.whitelist()
-# def employee_attendance(employee=None,time=None,log_type=None,device_id=None,latitude=None,longitude=None):
-#     try:
-#         if not employee:
-#             frappe.throw(_("Employee is required"), frappe.MandatoryError)
-        
-#         attendance = frappe.new_doc("Employee Checkin")
-#         attendance.employee = employee
-#         attendance.time = time
-#         attendance.log_type = log_type
-#         attendance.device_id = device_id
-#         attendance.latitude = latitude
-#         attendance.longitude = longitude
-
-#         # Insert and submit record
-#         attendance.insert(ignore_permissions=True)
-#         attendance.submit()
-#         frappe.db.commit()
-
-#         frappe.response["status"] = "success"
-#         frappe.response["message"] = "Attendance saved successfully"
-#         frappe.response["attendance_id"] = attendance.name
-
-#     except Exception as e:
-#         # Return exact error in response
-#         frappe.response["message"] = f"Error: {str(e)}"
