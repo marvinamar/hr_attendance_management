@@ -86,6 +86,8 @@ def employee_attendance(**kwargs):
     else:
         data = frappe.form_dict or kwargs
 
+    frappe.response["data"] = data
+
     employee = data.get("employee")
     time = data.get("time")
     log_type = data.get("log_type")
