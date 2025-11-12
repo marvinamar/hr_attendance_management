@@ -1,4 +1,5 @@
 import frappe
+import json
 from frappe import _
 
 @frappe.whitelist()
@@ -83,6 +84,9 @@ def employee_attendance(
     longitude=None
 ):
     try:
+
+        frappe.response["employee"] = employee
+
         if not employee:
             frappe.throw(_("Employee is required"), frappe.MandatoryError)
         
