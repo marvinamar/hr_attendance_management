@@ -74,12 +74,15 @@ def update_eployee_api(name=None,custom_embedding=None,custom_biometric_image=No
         frappe.response["message"] = f"Error: {str(e)}"
     
 @frappe.whitelist()
-def employee_attendance(employee=None,time=None,log_type=None,device_id=None,latitude=None,longitude=None):
+def employee_attendance(
+    employee=None,
+    time=None,
+    log_type=None,
+    device_id=None,
+    latitude=None,
+    longitude=None
+):
     try:
-        employee = frappe.form_dict.get("employee")
-
-        frappe.response["employee"] = employee
-
         if not employee:
             frappe.throw(_("Employee is required"), frappe.MandatoryError)
         
